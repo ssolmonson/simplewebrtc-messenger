@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
 
   // Local Video
   const localImageEl = $('#local-image')
-  cosnt localVideoEl = $('#local-video')
+  const localVideoEl = $('#local-video')
 
   //Remote Videos
   const remoteVideoTemplate = Handlebars.compile($('#remote-video-template').html())

@@ -41,4 +41,19 @@ window.addEventListener('load', () => {
     localImageEl.hide()
     localVideoEl.show()
   })
+
+  // Room sumbit button handler
+  $('.submit').on('click', (event) => {
+    if (!formEl.form('is valid')) {
+      return false
+    }
+    username = $('#username').val()
+    const roomName = $('#roomName').val().toLowerCase()
+    if (event.target.id === 'create-btn') {
+      createRoom(roomName)
+    } else {
+      joinRoom(roomName)
+    }
+    return false
+  })
 })

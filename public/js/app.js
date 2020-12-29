@@ -42,6 +42,44 @@ window.addEventListener('load', () => {
     localVideoEl.show()
   })
 
+  // Post local message
+  const postMessage = (message) => {
+    const chatMessage = {
+      username,
+      message,
+      postedOn: new Date().toLocaleString('en-GB')
+    }
+    // Send to all peers
+    webrtc.sendToAll('chat', chatMessage)
+    // Update messages locally
+    messages.push(chatMessage)
+    $('#post-message').val('')
+    updateChatMessages()
+  }
+
+  //Display chat interface
+  const showChatRoom = (room) => {
+    //Hide form
+    formEl.hide()
+    const html = chatTemplate({ room })
+    chatEl.html(html)
+    const postForm = $('form')
+    // Post message validation rules
+    postForm.form({
+      message: 'empty'
+    })
+    $('#post-btn').on('click', () => {
+      const message = $('#post-message').val()
+      postMessage(message)
+    })
+    $('#post-message').on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        const message = $('#post-message').val()
+        postMessage(message)
+      }
+    })
+  }
+
   // Register new chat room
   const createRoom = (roomName) => {
     console.info(`Creating new room: ${roomName}`)

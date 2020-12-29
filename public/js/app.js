@@ -44,13 +44,13 @@ window.addEventListener('load', () => {
 
   // Update chat messages
   const updateChatMessages = () => {
-    const html = chatContentTemplate({ messages });
-    const chatContentEl = $('#chat-content');
-    chatContentEl.html(html);
+    const html = chatContentTemplate({ messages })
+    const chatContentEl = $('#chat-content')
+    chatContentEl.html(html)
     // automatically scroll downwards
-    const scrollHeight = chatContentEl.prop('scrollHeight');
-    chatContentEl.animate({ scrollTop: scrollHeight }, 'slow');
-  };
+    const scrollHeight = chatContentEl.prop('scrollHeight')
+    chatContentEl.animate({ scrollTop: scrollHeight }, 'slow')
+  }
 
   // Post local message
   const postMessage = (message) => {

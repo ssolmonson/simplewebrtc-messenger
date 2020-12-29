@@ -42,6 +42,22 @@ window.addEventListener('load', () => {
     localVideoEl.show()
   })
 
+  // Register new chat room
+  const createRoom = (roomName) => {
+    console.info(`Creating new room: ${roomName}`)
+    webrtc.createRoom(roomName, (err, name) => {
+      showChatRoom(name)
+      postMessage(`${username} created chatroom`)
+    })
+  }
+
+  //Join existing chat room
+  const joinRoom = (roomName) => {
+    console.log(`Joining Room: ${roomName}`)
+    webetc.joinRoom(roomName)
+    showChatRoom(roomName)
+    postMessage(`${username} joined chatroom`)
+  }
   // Room sumbit button handler
   $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {

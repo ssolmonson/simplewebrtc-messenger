@@ -106,6 +106,16 @@ window.addEventListener('load', () => {
     showChatRoom(roomName)
     postMessage(`${username} joined chatroom`)
   }
+
+  // Receive message from remote user
+  webrtc.connection.on('message', (date) => {
+    if (date.type === 'chat') {
+      const message = data.payload
+      messages.push(message)
+      updateChatMessages()
+    }
+  })
+
   // Room sumbit button handler
   $('.submit').on('click', (event) => {
     if (!formEl.form('is valid')) {

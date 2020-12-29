@@ -4,9 +4,9 @@ window.addEventListener('load', () => {
   // Chat platform
   const chatTemplate = Handlebars.compile($('#chat-template').html())
   const chatContentTemplate = Handlebars.compile($('#chat-content-template').html())
-  const chatEL = $('#chat')
+  const chatEl = $('#chat')
   const formEl = $('.form')
-  const messages =[]
+  const messages = []
   let username
 
   // Local Video
@@ -102,7 +102,7 @@ window.addEventListener('load', () => {
   //Join existing chat room
   const joinRoom = (roomName) => {
     console.log(`Joining Room: ${roomName}`)
-    webetc.joinRoom(roomName)
+    webrtc.joinRoom(roomName)
     showChatRoom(roomName)
     postMessage(`${username} joined chatroom`)
   }

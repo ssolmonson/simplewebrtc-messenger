@@ -18,6 +18,9 @@ window.addEventListener('load', () => {
   const remoteVideosEl = $('#remote-videos')
   let remoteVideosCount = 0
 
+  // Hide cameras until initialized
+  localVideoEl.hide()
+
   // Add validation rules to Create/Join Room Form
   formEl.form({
     fields: {
@@ -41,6 +44,22 @@ window.addEventListener('load', () => {
     localImageEl.hide()
     localVideoEl.show()
   })
+
+  // Remote video was added
+  webrtc.on('videoAdded', (video, peer) => {
+    // eslint-disable-next-line no-console
+    const id = webrtc.getDomId(peer)
+    const html = remoteVideoTemplate({ id })
+    if (remoteVideosCount === 0) {
+      remoteVideosEl.html(html)
+    } else {
+      remoteVideosEl.append(html)
+    }
+    $(`#${id}`).html(video)
+    $(`#${id} video`).addClass('ui image medium') // Make video element responsive
+    remoteVideosCount += 1
+  })
+
 
   // Update chat messages
   const updateChatMessages = () => {
@@ -94,8 +113,10 @@ window.addEventListener('load', () => {
   const createRoom = (roomName) => {
     console.info(`Creating new room: ${roomName}`)
     webrtc.createRoom(roomName, (err, name) => {
+      formEl.form('clear')
       showChatRoom(name)
       postMessage(`${username} created chatroom`)
+      // console.log(`${username} created chatroom`)
     })
   }
 

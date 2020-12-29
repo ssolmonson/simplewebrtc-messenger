@@ -42,6 +42,16 @@ window.addEventListener('load', () => {
     localVideoEl.show()
   })
 
+  // Update chat messages
+  const updateChatMessages = () => {
+    const html = chatContentTemplate({ messages });
+    const chatContentEl = $('#chat-content');
+    chatContentEl.html(html);
+    // automatically scroll downwards
+    const scrollHeight = chatContentEl.prop('scrollHeight');
+    chatContentEl.animate({ scrollTop: scrollHeight }, 'slow');
+  };
+
   // Post local message
   const postMessage = (message) => {
     const chatMessage = {
